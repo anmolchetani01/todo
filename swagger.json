@@ -8,7 +8,11 @@
     "servers": [
       {
         "url": "http://localhost:4011/",
-        "description": "todo api"
+        "description": "local todo api"
+      },
+      {
+        "url": "https://todo-9oyo.onrender.com/",
+        "description": "server todo api"
       }
     ],
     "tags": [

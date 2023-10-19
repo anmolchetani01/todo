@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
        "lib": [
-          "es6"
+          "es2022"
        ],
        "target": "es2022",
        "module": "Node16",
        "moduleResolution": "nodeNext",
-       "outDir": "dist",
+       "outDir": "./dist",
        "resolveJsonModule": true,
        "emitDecoratorMetadata": true,
        "esModuleInterop": true,

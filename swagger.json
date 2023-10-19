@@ -1,0 +1,506 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "task management api",
+      "description": "Task management API for managing tasks"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:4011/",
+        "description": "todo api"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Task",
+        "description": "API for Task in the system"
+      },
+      {
+        "name": "User",
+        "description": "API for UserLogin in the system"
+      }
+    ],
+    "paths": {
+      "/task": {
+        "post": {
+          "tags": ["Task"],
+          "summary": "Add a task",
+          "description": "Create a task",
+          
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id":{
+                        "type":"string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "priority": {
+                      "type": "string"
+                    },
+                    "assignee":{
+                        "type":"string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Task added Successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error in adding task",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get":{
+            "tags":["Task"],
+            "summary": "get task",
+            "description": "view all task",
+            "responses": {
+                "200": {
+                  "description": "All task rendered successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in geting task",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      },
+      "/task/{id}":{
+        "get":{
+            "tags":["Task"],
+            "summary": "get particular task",
+            "description": "view particular task",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "id of particular task"
+                }
+            ],
+            "responses": {
+                "200": {
+                  "description": " task rendered successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in geting particular task",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        },
+        "patch":{
+            "tags":["Task"],
+            "summary": "edit particular task",
+            "description": "edit particular task",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "id of particular task"
+                }
+            ],
+            "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "priority": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "due_date":{
+                            "type":"string"
+                        },
+                        "assignee":{
+                            "type":"string"
+                        },
+                        "updated_by":{
+                            "type":"string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            "responses": {
+                "200": {
+                  "description": " task edited successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in editing particular task",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      },
+      "/task/{id}/assign":{
+        "patch":{
+            "tags":["Task"],
+            "summary": "assign particular task",
+            "description": "assign particular task",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "id of particular task which to be assigned"
+                }
+            ],
+            "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "assignee":{
+                            "type":"string"
+                        },
+                        "updated_by":{
+                            "type":"string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            "responses": {
+                "200": {
+                  "description": " task assigned successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in assigning particular task",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      },
+      "/task/{id}/status":{
+        "patch":{
+            "tags":["Task"],
+            "summary": "change task status",
+            "description": "change task status",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "id of particular task which to be change status"
+                }
+            ],
+            "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status":{
+                            "type":"string"
+                        },
+                        "updated_by":{
+                            "type":"string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            "responses": {
+                "200": {
+                  "description": " task status changed successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in changing status of particular task",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      },
+      "/user":{
+        "post":{
+            "tags":["User"],
+            "summary": "registration api",
+            "description": "registration api",
+            "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "name":{
+                            "type":"string"
+                        },
+                        "email":{
+                            "type":"string"
+                        },
+                        "password":{
+                            "type":"string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            "responses": {
+                "200": {
+                  "description": " user registered successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in registeration",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      },
+      "/user/verify":{
+        "post":{
+            "tags":["User"],
+            "summary": "otp verify api",
+            "description": "otp verify api",
+            "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "email":{
+                            "type":"string"
+                        },
+                        "otp":{
+                            "type":"string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            "responses": {
+                "200": {
+                  "description": " user registered successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in verification",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      },
+      "/user/login":{
+        "post":{
+            "tags":["User"],
+            "summary": "login api",
+            "description": "login api",
+            "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "email":{
+                            "type":"string"
+                        },
+                        "password":{
+                            "type":"string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            "responses": {
+                "200": {
+                  "description": " user loggined successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Error in loggin",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Error"
+                      }
+                    }
+                  }
+                }
+            }
+        }
+      }
+      
+    },
+    "components": {
+      "schemas": {
+        "SuccessResponse": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  

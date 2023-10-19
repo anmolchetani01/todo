@@ -1,0 +1,76 @@
+POST http://localhost:4011/task
+Content-Type: application/json
+
+{  
+    "id":"652fa72f2778cbef31321b43",
+    "title":"ASSIGNMENT",
+    "description":"this is to homework done at home",
+    "priority":"medium",
+    "due_date":"20-10-2023",
+    "assignee":"652e2e8388cb52fd6786575c",
+    "status":"todo"
+}
+
+###
+GET http://localhost:4011/task/652fbe67a0de0a12f0589a29
+###
+PATCH http://localhost:4011/task/652f86033b591621c5c3dba9
+Content-Type: application/json
+
+{
+    "title":"edu",
+    "status":"inprogress",
+    "priority":"low",
+    "due_date":"20-11-2023",
+    "updated_by":"652e2e8388cb52fd6786575c"
+}
+
+###
+GET http://localhost:4011/task
+
+###
+POST http://localhost:4011/user/
+Content-Type: application/json
+
+{
+   "name":"khushi",
+   "email":"anmolchetani@gmail.com",
+   "password":"12345Aa@"
+}
+
+###
+POST http://localhost:4011/user/verify
+Content-Type: application/json
+
+{
+   "email":"anmolchetani@gmail.com",
+   "otp":"891405"
+}
+
+###
+POST http://localhost:4011/user/login
+Content-Type: application/json
+
+{
+   "email":"anmolchetani@gmail.com",
+   "password":"12345Aa@"
+}
+
+
+###
+PATCH http://localhost:4011/task/652fbe67a0de0a12f0589a29/assign
+Content-Type: application/json
+
+{
+    "assignee":"652fc0f9f33e240d2a3b2814",
+    "updated_by":"652fa72f2778cbef31321b43"
+}
+
+###
+PATCH http://localhost:4011/task/652f86033b591621c5c3dba9/status
+Content-Type: application/json
+
+{
+    "status":"done",
+    "updated_by":"652e2e8388cb52fd6786575c"
+}

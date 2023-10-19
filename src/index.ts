@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import {initdb} from "./utils/dbutils"
 import authUserRoute from "./routes/auth-user-routes";
 import taskRoutes from "./routes/task-routes";
+import cors from "cors";
 // import swaggerdocs from "swagger-jsdoc"
 import swaggerui from "swagger-ui-express"
 
@@ -24,7 +25,7 @@ const app=express();
 //     apis:["./routes/*.ts"],
 // }
 // const spacs = swaggerdocs(options)
-
+app.use(cors())
 app.use(express.json())
 
 app.use("/task",taskRoutes)

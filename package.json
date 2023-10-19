@@ -23,7 +23,6 @@
     "nodemon": "^3.0.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "tsc": "^2.0.4",
     "typescript": "^5.2.2"
   }
 }

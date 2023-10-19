@@ -4,7 +4,6 @@ import {initdb} from "./utils/dbutils"
 import authUserRoute from "./routes/auth-user-routes";
 import taskRoutes from "./routes/task-routes";
 import cors from "cors";
-// import swaggerdocs from "swagger-jsdoc"
 import swaggerui from "swagger-ui-express"
 
 dotenv.config();
@@ -13,18 +12,7 @@ const PORT= process.env.PORT || 9999
 
 initdb()
 const app=express();
-// const options = {
-//     definition:{
-//         openapi:"1.0.0",
-//         servers:[
-//             {
-//                 url:"http://localhost:4011/",
-//             },
-//         ],
-//     },
-//     apis:["./routes/*.ts"],
-// }
-// const spacs = swaggerdocs(options)
+
 app.use(cors())
 app.use(express.json())
 

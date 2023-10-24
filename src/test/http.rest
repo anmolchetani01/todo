@@ -2,12 +2,12 @@ POST http://localhost:4011/task
 Content-Type: application/json
 
 {  
-    "id":"652fa72f2778cbef31321b43",
+    "id":"653185378009290c8b810a71",
     "title":"ASSIGNMENT",
     "description":"this is to homework done at home",
     "priority":"medium",
     "due_date":"20-10-2023",
-    "assignee":"652e2e8388cb52fd6786575c",
+    "assignee":"653185378009290c8b810a7a",
     "status":"todo"
 }
 
@@ -33,7 +33,7 @@ POST http://localhost:4011/user/
 Content-Type: application/json
 
 {
-   "name":"khushi",
+   "name":"anmol",
    "email":"anmolchetani@gmail.com",
    "password":"12345Aa@"
 }
@@ -44,7 +44,7 @@ Content-Type: application/json
 
 {
    "email":"anmolchetani@gmail.com",
-   "otp":"891405"
+   "otp":"127101"
 }
 
 ###

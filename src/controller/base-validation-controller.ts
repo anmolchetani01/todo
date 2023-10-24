@@ -20,13 +20,13 @@ export default class BaseValidation {
         return validdescriptionregx.test(description)
     }
     public isValidPriority = (priority) =>{
-        priority.toLowerCase()
+        priority?.toLowerCase()
         if(priority==='low' ||priority==='medium'||priority==='high')
         return true;
         return false;
     }
     public isValidStatus = (status) =>{
-        status.toLowerCase()
+        status?.toLowerCase()
         if(status==='todo' ||status==='inprogress'||status==='done')
         return true;
         return false;

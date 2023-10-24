@@ -8,18 +8,21 @@ export default class TaskManagerController extends ValidationController {
     private _taskManagerService = new TaskManager()
 
     public createTask=async (createfields:taskType,id:string)=>{
-        const fieldstovalidate:string[]=[
-            this.fieldNames.title,
-            this.fieldNames.description,
-            this.fieldNames.priority,
-            this.fieldNames.status
-        ]
+        const fieldstovalidate:string[]=[]
         const {
             title,
             description,
             priority,
             status
         }=createfields
+        if(title)
+        fieldstovalidate.push(this.fieldNames.title)
+        if(description)
+        fieldstovalidate.push(this.fieldNames.description)
+        if(priority)
+        fieldstovalidate.push(this.fieldNames.priority)
+        if(status)
+        fieldstovalidate.push(this.fieldNames.status)
         this.validateAndThrowError({ fieldsToValidate:fieldstovalidate ,title,description,priority,status})
         return await this._taskManagerService.createTask(createfields,id)
     }

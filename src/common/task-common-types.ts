@@ -1,6 +1,6 @@
 export type taskType = {
     title?:string;
-    description?:string;
+    desc?:string;
     priority?:string;
     due_date?:string;
     assignee?:string;

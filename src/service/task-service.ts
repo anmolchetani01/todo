@@ -8,15 +8,19 @@ import {Types} from "mongoose"
 
 export default class TaskManager {
     _baseAuthuserService = new BaseAuthUserService()
-    public createTask = async (createfields:taskType,id1:string) =>{
+    public createTask = async (createfields:taskType,userid:string) =>{
         // const dd=convertDate(due_date)
-        console.log(id1)
-        const id=new Types.ObjectId(id1)
-        console.log(id)
-        const isUserAuthorized =await  this._baseAuthuserService.getAuthUserById(id);
+        console.log(userid)
+        // const id=new Types.ObjectId(userid)
+        // console.log(id)
+        const isUserAuthorized =await  this._baseAuthuserService.getAuthUserById(userid);
+        if(!isUserAuthorized)
+        {
+            throw new Error(`user is not authorized to create task`)
+        }
         const {
             title,
-            description,
+            desc,
             priority,
             due_date,
             assignee,
@@ -24,7 +28,7 @@ export default class TaskManager {
         }=createfields
         const newTask = new Task({
             title,
-            description,
+            desc,
             priority,
             due_date:convertDate(due_date),
             assignee,

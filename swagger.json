@@ -45,7 +45,7 @@
                     "title": {
                       "type": "string"
                     },
-                    "description": {
+                    "desc": {
                       "type": "string"
                     },
                     "priority": {
@@ -177,7 +177,7 @@
                         "title": {
                           "type": "string"
                         },
-                        "description": {
+                        "desc": {
                           "type": "string"
                         },
                         "priority": {

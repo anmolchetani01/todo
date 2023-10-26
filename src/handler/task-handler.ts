@@ -8,9 +8,9 @@ const _taskManagerController = new TaskManagerController()
 export const createTask = async (req:Request,res:Response,next:NextFunction)=>{
     try{
         const {
-            id,
+            userid,
             title,
-            description,
+            desc,
             priority,
             due_date,
             assignee,
@@ -18,13 +18,13 @@ export const createTask = async (req:Request,res:Response,next:NextFunction)=>{
         }=req.body;
         const createfields:taskType = {
             title,
-            description,
+            desc,
             priority,
             due_date,
             assignee,
             status
         }
-        const result = await _taskManagerController.createTask(createfields,id);
+        const result = await _taskManagerController.createTask(createfields,userid);
         res.status(200).send(result)
     }
     catch(error)
@@ -53,7 +53,7 @@ export const editTask = async (req:Request,res:Response,next:NextFunction) =>{
         const taskid=req.params.id;
         const {
             title,
-            description,
+            desc,
             priority,
             due_date,
             assignee,
@@ -62,7 +62,7 @@ export const editTask = async (req:Request,res:Response,next:NextFunction) =>{
 
         const updatefields:taskType={
             title,
-            description,
+            desc,
             priority,
             due_date,
             assignee,

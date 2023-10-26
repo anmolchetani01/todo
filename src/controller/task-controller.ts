@@ -7,24 +7,21 @@ import { Types } from "mongoose";
 export default class TaskManagerController extends ValidationController {
     private _taskManagerService = new TaskManager()
 
-    public createTask=async (createfields:taskType,id:string)=>{
-        const fieldstovalidate:string[]=[]
+    public createTask=async (createfields:taskType,userid:string)=>{
         const {
             title,
-            description,
+            desc,
             priority,
+            due_date,
+            assignee,
             status
-        }=createfields
-        if(title)
-        fieldstovalidate.push(this.fieldNames.title)
-        if(description)
-        fieldstovalidate.push(this.fieldNames.description)
-        if(priority)
-        fieldstovalidate.push(this.fieldNames.priority)
-        if(status)
-        fieldstovalidate.push(this.fieldNames.status)
-        this.validateAndThrowError({ fieldsToValidate:fieldstovalidate ,title,description,priority,status})
-        return await this._taskManagerService.createTask(createfields,id)
+        }=createfields;
+        this.validateTitle(title);
+        this.validateDescription(desc);
+        this.validateDate(due_date);
+        this.validatePriority(priority);
+        this.validateStatus(status);
+        return await this._taskManagerService.createTask(createfields,userid)
     }
     public getTask =async (id:string) => {
         if(Types.ObjectId.isValid(id))
@@ -32,22 +29,14 @@ export default class TaskManagerController extends ValidationController {
         throw new Error(`id is invalid`)
     }
     public editTask = async (editBy:string,task_id:string,updateFields:taskType)=>{
-        const fieldstovalidate:string[]=[];
         if(updateFields.title)
-        fieldstovalidate.push('title');
-        if(updateFields.description)
-        fieldstovalidate.push('description');
+        this.validateTitle(updateFields.title);
+        if(updateFields.desc)
+        this.validateDescription(updateFields.desc);
         if(updateFields.priority)
-        fieldstovalidate.push('priority');
+        this.validatePriority(updateFields.priority);
         if(updateFields.status)
-        fieldstovalidate.push('status');
-        this.validateAndThrowError({
-            fieldsToValidate:fieldstovalidate,
-            title:updateFields.title,
-            description:updateFields.description,
-            priority:updateFields.priority,
-            status:updateFields.status
-        })
+        this.validateStatus(updateFields.status);
         return await this._taskManagerService.editTask(editBy,task_id,updateFields)
     };
 
@@ -58,11 +47,10 @@ export default class TaskManagerController extends ValidationController {
     public assigneetask = async (taskId:string,assigneeId:string,editBy:string) =>{
         if(Types.ObjectId.isValid(taskId)&&Types.ObjectId.isValid(assigneeId)&&Types.ObjectId.isValid(editBy))
         return await this._taskManagerService.assigneetask(taskId,assigneeId,editBy);
-        throw new Error(`invalid id`);
+        throw new Error(`invalid mongoose id`);
     };
     public changeStatus = async (id:string,status:string,updated_by:string)=>{
-        const fieldsToValidate:string[]=[this.fieldNames.status];
-        this.validateAndThrowError({fieldsToValidate,status})
+        this.validateStatus(status)
         if(!Types.ObjectId.isValid(updated_by))
         throw new Error(`invalid update id`)
         return await this._taskManagerService.changeStatus(id,status,updated_by)

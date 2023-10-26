@@ -1,6 +1,6 @@
 export const  convertDate = (date:string) =>{
 
-    const [day, month, year] = date.split('-').map(Number);
+    const [day, month, year] = date?.split('-')?.map(Number);
     const jsDate = new Date(Date.UTC(year, month - 1, day))
     console.log(jsDate); // This will print the date as a JavaScript Date object
     return jsDate;

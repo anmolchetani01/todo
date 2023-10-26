@@ -19,6 +19,10 @@ export default class BaseValidation {
         const validdescriptionregx=/^[A-Za-z@#$?!*\s]*$/i
         return validdescriptionregx.test(description)
     }
+    public isValidDueDate = (date) =>{
+     if(!date)
+     return false;
+    }
     public isValidPriority = (priority) =>{
         priority?.toLowerCase()
         if(priority==='low' ||priority==='medium'||priority==='high')

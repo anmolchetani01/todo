@@ -1,72 +1,46 @@
+import { Types } from "mongoose";
 import BaseValidationController from "./base-validation-controller";
 
-type validationInput = {
-    fieldsToValidate?:string[];
-    name?:string;
-    email?:string;
-    password?:string;
-    title?:string;
-    description?:string;
-    priority?:string;
-    status?:string;
-}
-
 export default class ValidationController extends BaseValidationController {
-    fieldNames = {
-        name:"name",
-        email:"email",
-        password:"password",
-        title:'title',
-        description:'description',
-        priority:'priority',
-        status:'status',
+    validateName=(name:string)=>{
+        name=name?.trim()
+        if(!name || name?.length===0 || !this.isValidName(name))
+        throw new Error(`name is mandatory enter valid name`)
     }
-    validateAndThrowError = ({
-        fieldsToValidate,
-        name,
-        email,
-        password,
-        title,
-        description,
-        priority,
-        status
-    }:validationInput)=>{
-        console.log(`fieldstovalidate in validation-controller ${fieldsToValidate}`)
-        if(fieldsToValidate.includes(this.fieldNames.name) && !this.isValidName(name))
-        {
-            console.log(`in validation-controller  ${name} is invalid name please enter a valid name`)
-            throw new Error(`invalid name`)
-        }
-        if(fieldsToValidate.includes(this.fieldNames.email) && !this.isValidEmail(email))
-        {
-            console.log(`in validation-controller  ${email} is invalid email please enter a valid email`)
-            throw new Error(`invalid email`)
-        }
-        if(fieldsToValidate.includes(this.fieldNames.password) && !this.isValidpassword(password))
-        {
-            console.log(`in validation-controller  ${password} is invalid password please enter a valid password`)
-            throw new Error(`invalid password`)
-        }
-        if(fieldsToValidate.includes(this.fieldNames.title) && !this.isValidTitle(title))
-        {
-            console.log(`in validation-controller  ${title} is invalid title please enter a valid title`)
-            throw new Error(`invalid title`)
-        }
-        if(fieldsToValidate.includes(this.fieldNames.description) && !this.isValidDescription(description))
-        {
-            console.log(`in validation-controller  ${description} is invalid description please enter a valid description`)
-            throw new Error(`invalid description`)
-        }
-        if(fieldsToValidate.includes(this.fieldNames.priority) && !this.isValidPriority(priority))
-        {
-            console.log(`in validation-controller  ${priority} is invalid priority please enter a valid priority`)
-            throw new Error(`invalid priority`)
-        }
-        if(fieldsToValidate.includes(this.fieldNames.status) && !this.isValidStatus(status))
-        {
-            console.log(`in validation-controller  ${status} is invalid status please enter a valid status`)
-            throw new Error(`invalid status`)
-        }
-
+    validateEmail=(email:string)=>{
+        email=email?.trim()
+        if(!email || email?.length===0 || !this.isValidEmail(email))
+        throw new Error(`email is mandatory enter valid email`)
+    }
+    validatePassword=(pass:string)=>{
+        if(!this.isValidpassword(pass))
+        throw new Error(`password is mandatory enter valid password`)
+    }
+    validateTitle=(title:string)=>{
+        title=title?.trim()
+        if(!title || title?.length===0 || !this.isValidTitle(title))
+        throw new Error(`title is mandatory enter valid title`)
+    }
+    validateDescription=(desc:string)=>{
+        desc=desc?.trim()
+        if(!desc || desc?.length===0 || !this.isValidDescription(desc))
+        throw new Error(`desc is mandatory enter valid desc`)
+    }
+    validatePriority=(priority:string)=>{
+        if(!this.isValidPriority(priority))
+        throw new Error(`Enter valid priority. priority can only be low medium high`)
+    }
+    validateStatus=(status:string)=>{
+        if(!this.isValidStatus(status))
+        throw new Error(`status is mandatory enter valid status`)
+    }
+    validateDate=(date:string)=>{
+        const validDateRegx=/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/;
+        if(!validDateRegx.test(date))
+        throw new Error(`Enter a valid date.valid date can be of form dd-mm-yyyy`)
+    }
+    validateMongooseId=(id:string)=>{
+        if(!Types.ObjectId.isValid(id))
+        throw new Error(`Enter a valid mongoose id`)
     }
 }
